@@ -28,7 +28,7 @@ def create_ucs_list(pathname):
 def main(pathname):
     ucs_list = create_ucs_list(pathname)
 
-    # アクター一覧
+    # アクター一覧集計
     actor_set = set()
     actor_ucss_map = {}
     for ucs in ucs_list:
@@ -44,10 +44,27 @@ def main(pathname):
     for actor_name in actor_name_list:
         # print(actor_name)
         print(f'{actor_name} ... {len(actor_ucss_map.get(actor_name))}件')
-        """
-        for ucs in actor_map.get(actor_name):
-        print(f'    {ucs.scenario_id}')
-        """
+        # for ucs in actor_map.get(actor_name):
+        #     print(f'    {ucs.scenario_id}')
+
+    """
+    # 条件一覧
+    for ucs in ucs_list:
+        print(f'UC: {ucs.scenario_id}')
+        print('事前条件：')
+        for cond in ucs.pre_conditions:
+            print(cond)
+        print('事後条件：')
+        for cond in ucs.post_conditions:
+            print(cond)
+        print()
+    """
+
+    """
+    # UCシナリオ詳細表示
+    for ucs in ucs_list:
+        print(ucs)
+    """
 
 
 if __name__ == '__main__':

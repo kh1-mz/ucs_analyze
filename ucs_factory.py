@@ -1,6 +1,6 @@
 """ユースケースシナリオファクトリークラス
 """
-from use_case_scenario import Actor, UseCaseScenario
+from use_case_scenario import Actor, UseCaseScenario, Condition
 import openpyxl
 
 
@@ -26,6 +26,8 @@ def _create_actors(line):
 def _set_header(ws, ucs):
     """ヘッダー情報をセット
     """
+    is_pre_cond = False
+    is_post_cond = False
     for row in ws.iter_rows():
         val = _get_string(row[2])
         match _get_string(row[0]):
@@ -42,11 +44,22 @@ def _set_header(ws, ucs):
             case '関連要求（制約）':
                 ucs.related_requirement = val
             case '事前条件':
-                pass
+                is_pre_cond = True
+                is_post_cond = False
             case '事後条件':
-                pass
+                is_pre_cond = False
+                is_post_cond = True
             case 'フロー':
                 break
+
+        if is_pre_cond and val:
+            # 事前条件処理
+            cond = Condition(_get_string(row[1]), val)
+            ucs.pre_conditions.append(cond)
+        elif is_post_cond and val:
+            # 事後条件処理
+            cond = Condition(_get_string(row[1]), val)
+            ucs.post_conditions.append(cond)
 
 
 def create(excel_file):
