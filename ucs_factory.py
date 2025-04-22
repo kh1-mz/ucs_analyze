@@ -53,6 +53,7 @@ def create(excel_file):
     wb = openpyxl.load_workbook(excel_file)
     ws = wb.worksheets[0]
     ucs = UseCaseScenario()
+    ucs.excel_path = excel_file
 
     _set_header(ws, ucs)
 

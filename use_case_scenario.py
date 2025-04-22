@@ -1,6 +1,7 @@
 """ユースケースシナリオクラス
 """
 from dataclasses import dataclass, field
+from pathlib import Path
 
 
 @dataclass
@@ -10,6 +11,7 @@ class Actor:
 
 @dataclass
 class UseCaseScenario:
+    excel_path: Path = None          # 入力となったExcelファイルのパス
     scenario_id: str = ''            # シナリオID
     related_request_id: str = ''     # 関連要求ID
     abstract: str = ''               # 概要、場面
