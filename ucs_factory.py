@@ -65,6 +65,8 @@ def _set_header(ws, ucs):
 def create(excel_file):
     wb = openpyxl.load_workbook(excel_file)
     ws = wb.worksheets[0]
+    if ws.title == '変更履歴':
+        ws = wb.worksheets[1]
     ucs = UseCaseScenario()
     ucs.excel_path = excel_file
 
