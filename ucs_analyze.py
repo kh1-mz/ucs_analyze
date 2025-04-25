@@ -1,32 +1,9 @@
 import sys
-import re
-from pathlib import Path
 import ucs_factory
 
 
-def create_ucs_list(pathname):
-    ucs_list = []
-    p = Path(pathname)
-    if p.is_file():
-        # print(p)
-        ucs = ucs_factory.create(p)
-        ucs_list.append(ucs)
-    elif p.is_dir():
-        for xlfile in p.glob('**/*.xlsx'):
-            if re.match(r'^~.*', xlfile.stem):
-                # テンポラリファイルはスキップ
-                continue
-            print(xlfile)
-            ucs = ucs_factory.create(xlfile)
-            ucs_list.append(ucs)
-    else:
-        print(f'ERROR: {str(p)}: No such file or directory')
-
-    return ucs_list
-
-
 def main(pathname):
-    ucs_list = create_ucs_list(pathname)
+    ucs_list = ucs_factory.create_ucs_list(pathname)
 
     # アクター一覧集計
     actor_set = set()

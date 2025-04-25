@@ -1,5 +1,7 @@
 """ユースケースシナリオファクトリークラス
 """
+import re
+from pathlib import Path
 import openpyxl
 from use_case_scenario import Actor, UseCaseScenario, Condition, FlowType, Flow
 
@@ -138,3 +140,22 @@ def create(excel_file):
     ucs.traverse_flow()  # アクションのブランチを接続
 
     return ucs
+
+
+def create_ucs_list(pathname):
+    ucs_list = []
+    p = Path(pathname)
+    if p.is_file():
+        ucs = create(p)
+        ucs_list.append(ucs)
+    elif p.is_dir():
+        for xlfile in p.glob('**/*.xlsx'):
+            if re.match(r'^~.*', xlfile.stem):
+                # テンポラリファイルはスキップ
+                continue
+            ucs = create(xlfile)
+            ucs_list.append(ucs)
+    else:
+        print(f'ERROR: {str(p)}: No such file or directory')
+
+    return ucs_list
