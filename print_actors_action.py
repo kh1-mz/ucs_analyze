@@ -1,7 +1,7 @@
 """UCシナリオのアクターごとのアクションを表示する
 """
 import sys
-from ucs_analyze import create_ucs_list
+from ucs_factory import create_ucs_list
 import morph
 
 

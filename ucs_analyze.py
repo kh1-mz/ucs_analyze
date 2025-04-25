@@ -1,5 +1,10 @@
 import sys
+from dataclasses import asdict
+import json
 import ucs_factory
+
+
+UCS_JSON_FILE = 'ucs.json'
 
 
 def main(pathname):
@@ -19,29 +24,17 @@ def main(pathname):
     # アクター一覧
     actor_name_list = sorted(list(actor_set))
     for actor_name in actor_name_list:
-        # print(actor_name)
         print(f'{actor_name} ... {len(actor_ucss_map.get(actor_name))}件')
-        # for ucs in actor_map.get(actor_name):
-        #     print(f'    {ucs.scenario_id}')
 
-    """
-    # 条件一覧
+    # JSONで保存
+    ucs_dict_list = []
     for ucs in ucs_list:
-        print(f'UC: {ucs.scenario_id}')
-        print('事前条件：')
-        for cond in ucs.pre_conditions:
-            print(cond)
-        print('事後条件：')
-        for cond in ucs.post_conditions:
-            print(cond)
-        print()
-    """
+        # dict変換
+        ucs_dict_list.append(asdict(ucs))
 
-    """
-    # UCシナリオ詳細表示
-    for ucs in ucs_list:
-        print(ucs)
-    """
+    with open(UCS_JSON_FILE, 'w', encoding='utf-8') as f:
+        # ファイルに書き込み
+        json.dump(ucs_dict_list, f, indent=2, ensure_ascii=False)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 """アクター情報を表示o
 """
 import sys
+from pathlib import Path
 import ucs_factory
 
 
@@ -29,7 +30,7 @@ def main(pathname):
     for actor_name in actor_name_list:
         print(f'  {actor_name}')
         for ucs in actor_ucss_map.get(actor_name):
-            print(f'    [{ucs.scenario_id}] : {ucs.excel_path.name}')
+            print(f'    [{ucs.scenario_id}] : {Path(ucs.excel_path).name}')
     print()
 
 

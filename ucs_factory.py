@@ -132,7 +132,7 @@ def create(excel_file):
     if ws.title == '変更履歴':
         ws = wb.worksheets[1]
     ucs = UseCaseScenario()
-    ucs.excel_path = excel_file
+    ucs.excel_path = str(excel_file)
 
     _set_header(ws, ucs)
     _set_scenario(ws, ucs)

@@ -1,8 +1,6 @@
 """ユースケースシナリオクラス
 """
 from dataclasses import dataclass, field
-from pathlib import Path
-from enum import Enum, auto
 
 
 @dataclass
@@ -34,11 +32,12 @@ class Action:
         return msg
 
 
-class FlowType(Enum):
-    NONE = auto()               # 未指定
-    MAIN = auto()               # 基本フロー
-    ALTERNATIVE = auto()        # 代替フロー
-    EXCEPTION = auto()          # 例外フロー
+@dataclass
+class FlowType:
+    NONE = 0               # 未指定
+    MAIN = 1               # 基本フロー
+    ALTERNATIVE = 2        # 代替フロー
+    EXCEPTION = 3          # 例外フロー
 
 
 @dataclass
@@ -83,7 +82,7 @@ class Flow:
 
 @dataclass
 class UseCaseScenario:
-    excel_path: Path = None          # 入力となったExcelファイルのパス
+    excel_path: str = None          # 入力となったExcelファイルのパス
     scenario_id: str = ''            # シナリオID
     related_request_id: str = ''     # 関連要求ID
     abstract: str = ''               # 概要、場面
