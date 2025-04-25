@@ -154,3 +154,15 @@ class UseCaseScenario:
             flow.traverse_actions(self._flow_map)
         for flow in self.exception_flows:
             flow.traverse_actions(self._flow_map)
+
+    def get_actions(self):
+        """すべてのアクションを取り出す
+        """
+        actions = []
+        actions += self.main_flow.actions
+        for flow in self.alternative_flows:
+            actions += flow.actions
+        for flow in self.exception_flows:
+            actions += flow.actions
+
+        return actions
